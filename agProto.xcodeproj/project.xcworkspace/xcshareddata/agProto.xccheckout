@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E6973263-EB9B-411A-9B03-B6F9645534F6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>agProto</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FBEFC33D-15FB-46A4-B146-B7E4A8262E88</key>
+		<string>ssh://github.com/JosephPeters/nuPadApp.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>agProto.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FBEFC33D-15FB-46A4-B146-B7E4A8262E88</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/JosephPeters/nuPadApp.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FBEFC33D-15FB-46A4-B146-B7E4A8262E88</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FBEFC33D-15FB-46A4-B146-B7E4A8262E88</string>
+			<key>IDESourceControlWCCName</key>
+			<string>nuPadApp</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;" />
+        
+        <link rel="stylesheet" type="text/css" href="appframework/af.ui.css" />
+        <link rel="stylesheet" type="text/css" href="appframework/icons.css" />
+        <script type="text/javascript" charset="utf-8" src="appframework/appframework.ui.min.js"></script>
+        
+        <!-- Required if packaging to native app using Intel XDK -->
+        <script src="intelxdk.js"></script>
+        <script src="xhr.js"></script>
+        <script>
+            function onDeviceReady(){
+                $.ui.launch();
+                intel.xdk.device.hideSplashScreen();
+            }
+        document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
+            </script>
+        <!-- end Intel XDK code -->
+        
+        <script>
+            $.ui.autoLaunch = false;
+            $.ui.backButtonText = "Back";
+            
+            $(document).ready(function(){
+                              $.ui.launch();
+                              });
+            </script>
+        <style>
+            /* css for custom list item, modify as needed */
+            #afui #listview .list .details li.hide {
+                display: block;
+                transition: all 0.5s ease;
+                height:0;
+                border: 0;
+            }
+            
+            #afui #listview .list .details.show-details {
+                display: block;
+                transition: all 0.5s ease;
+                width: 100%;
+                height: 100%;
+                background: #DEFFEE;
+                padding-top: 200px;
+                padding-bottom: 100px;
+            }
+            #afui #listview .list .details {
+                transition: all 0.5s ease; 
+                width: 100%; 
+                height: auto; 
+                background:none;
+                display: block;
+            }
+            #afui #listview .list li.open {height: 170px;}
+            #afui #listview .list li {transition: all 0.5s ease; padding:0; overflow: hidden; height: 100px; margin:0; position: relative;}
+            .listing {
+                transition: all 0.2s ease;
+                display: block;
+                height: 100%;
+                background: rgba(0,0,0,0.69);
+                }
+            li.open .listing {
+                transition: all 0.5s ease;
+                background: rgba(0,0,0,0.1);
+                }
+            .list-image {float:right;width:50px;height:50px; display: none;}
+            .list-text {transition: all 0.2s ease; margin-left:18px;padding-top: 40px;}
+            
+            li.open .listing .list-text {
+                transition: all 0.5s ease;
+                padding-top: 25px;
+                }
+            li.open .listing .list-text b{
+                transition: all 0.5s ease;
+                padding: 10px;
+                background: rgba(15,27,33,0.7);
+                }
+            li .listing .list-text b{
+                transition: all 0.5s ease;
+                font-weight: lighter;
+                padding: 0;
+                background: rgba(0,0,0,0);
+                }
+            #content {
+                text-transform:uppercase;
+                text-align: center;
+                color: #fff !important;
+                font-size: 15px;
+
+               }
+               .a {
+                background: #fff url('apt-pic.jpg') no-repeat center center;
+               }
+               .b {
+                background: #fff url('apt-pic2.jpg') no-repeat center center;
+               }
+               .c {
+                background: #fff url('apt-pic3.jpg') no-repeat center center;
+               }
+               .d {
+                background: #fff url('apt-pic4.jpg') no-repeat center center;
+               }
+               .e {
+                background: #fff url('apt-pic5.jpg') no-repeat center center;
+               }
+               .f {
+                background: #fff url('apt-pic6.jpg') no-repeat center center;
+               }
+               .g {
+                background: #fff url('apt-pic7.jpg') no-repeat center center;
+               }
+               .h {
+                background: #fff url('apt-pic8.jpg') no-repeat center center;
+               }
+
+               /* CTA Buttons */
+               li.open .listing .cta-btns {
+                transition: all 0.5s ease;
+                margin: 50px auto 0 auto;
+                display: block;
+                width: 100%;
+                height: auto;
+                }
+                .cta-btns {
+                    transition: all 0.5s ease;
+                    margin: 120px auto 0 auto;
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+               .cta {
+                letter-spacing: 1px;
+                font-size: 12px;
+                width: 90px;
+                height: 50px;
+                display: inline-block;
+                padding-top: 16px;
+                text-align: center;
+                margin-left: 10px;
+                border-radius:5px;
+                border:2px #219211 solid;
+                background: rgba(0,169,5,0.83);
+                color: #fff;
+               }
+               /* full details */
+               #full-details.panel {
+                transition: all 0.5s ease;
+                display: block;
+                position: absolute;
+                padding:0;
+                height: 0;
+                top: 40%;
+                width: 100%;
+                background: #fff;
+                z-index: 500;
+                overflow: hidden;
+                list-style: none;
+                color: #fff;
+               }
+               #full-details.open {
+                transition: all 0.5s ease;
+                display: block;
+                text-align: center;
+                position: absolute;
+                height: 100%;
+                top: 0;
+                width: 100%;
+                background:#fff;
+                padding:0 0 0 0;
+                overflow: scroll !important;
+                z-index: 500;
+               }
+               .close{ 
+                    z-index: 6800;
+                    left:0;
+                    position: fixed;
+                    top: 80px;
+                    margin-left: 20px !important;
+                    border-radius: 50%;
+                    height: 30px;
+                    width: 30px;
+                    color: #fff;
+                    border: 1px #fff solid;
+                    padding-left: 9px;
+                    padding-top: 4px;
+                }
+               #full-details .details{
+                display: block;
+                position: absolute;
+                height: 568px;
+                top: 0;
+                width: 100%;
+                background: #fff;
+                padding:0;
+                z-index: 610;
+                color: #fff;
+
+               }
+               
+                #full-details .cta-btns {
+                transition: all 0.5s ease;
+                display: none;
+                position: fixed;
+                bottom: 0;
+                padding: 10px 0;
+                margin: 0;
+                background: #0f1b21;
+                }
+                #full-details .listing {
+                transition: all 1.5s ease;
+                height: 390px;
+
+                }
+                #full-details.open #photo-gradient {
+                height: 108px;
+                width: 320px;
+                left:0;
+                z-index: 614;
+                top: 282px;
+                background: url('grad.png') repeat-x bottom;
+                position: absolute;
+                }
+                #info {
+                text-align: left;
+                position: relative;
+                height: auto;
+                top: 300px;
+                width: 320px;
+                /* background: rgba(255, 255, 255, 0.6); */
+                border-top: 1px rgba(255, 255, 255, 0.8) solid; 
+                padding:10px 0 75px 0;
+                z-index: 620;
+                }
+                #info::-webkit-scrollbar { width: 0 !important }
+                
+                .info-box {
+                position: relative;
+                height: auto;
+                width: 100%;
+                background:rgba(255,255,255,0.7);
+                padding:10px;
+                margin: 0 0 25px 0; 
+                color: #000;
+                }
+
+                .info-box p{
+                    font-size: 12px !important;
+                    color: #000 !important;
+                    line-height: 20px !important;
+                }
+
+                
+                #full-details h2 {
+                    display:block;
+                    height:auto;
+                    font-weight: lighter;
+                    font-size:18px;
+                    padding:2px 0;
+                    margin-bottom:0;
+                    color: #000 !important;
+                }
+                #overlay {
+                    font-weight: lighter;
+                    font-size: 16px;
+                    padding: 10px;
+                    position: absolute;
+                    top:160px;
+                    display: block;
+                    width: 320px;
+                    height: 140px;
+                    background:none;
+                    z-index: 650;
+                }
+                #overlay b{
+                    font-size: 20px;
+                    font-weight: lighter !important;
+                    text-shadow: 1px 1px 1px #000, 3px 1px 6px #000;
+                }
+                       
+        
+            </style>
+    </head>
+    <body>
+        <div id="afui" class="ios7" >
+
+         <!--Full Details-->
+            <div id="full-details" class="panel">
+                     <span class="close">X</span>
+                     <div id="overlay"></div>
+                     <div id="photo-gradient"></div>
+                     <div id="info">
+                       
+                        <div class="info-box"><h2> Information</h2>
+                        <hr>
+                        <p>I decided to have a go at building a simple movie app. Its been done to death but as an entry into app design its something I can get interested in.</p><p>I decided to have a go at building a simple movie app. </p>
+                        </div>
+
+                        <div class="info-box"><h2> Information</h2>
+                        <hr>
+                        <p>I decided to have a go at building a simple movie app. Its been done to death but as an entry into app design its something I can get interested in.</p><p>I decided to have a go at building a simple movie app. </p>
+                        </div>
+
+                        <div class="info-box"><h2> Information</h2>
+                        <hr>
+                        <p>I decided to have a go at building a simple movie app. Its been done to death but as an entry into app design its something I can get interested in.</p><p>I decided to have a go at building a simple movie app. </p>
+                        </div>
+
+                        <div class="info-box"><h2> Information</h2>
+                        <hr>
+                        <p>I decided to have a go at building a simple movie app. Its been done to death but as an entry into app design its something I can get interested in.</p><p>I decided to have a go at building a simple movie app. </p>
+                        </div>
+
+                    </div>
+                
+            </div>
+            
+            <div id="content" style="">
+               
+                <!--List View Page-->
+                <div class="panel" title="nuPad" id="listview" data-footer="none" selected="false">
+                    
+                    <ul class="list">
+                        <div class="details">
+                            <li class="a">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Steeple Chase Apartments</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="b">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Ashford Jackson Creek</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>    
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="c">
+                                <div class="listing">
+                                    <img class="list-image" src="data/female_user_icon.svg" />
+                                    <div class="list-text"><b>Concepts 21 The Corners</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="d">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Retreat at Arc Way</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">    
+                            <li class="e">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Steeple Chase Apartments</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="f">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Ashford Jackson Creek</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="g">
+                                <div class="listing">
+                                    <img class="list-image" src="data/female_user_icon.svg" />
+                                    <div class="list-text"><b>Concepts 21 The Corners</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="h">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Retreat at Arc Way</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="a">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Steeple Chase Apartments</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                    </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="b">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Ashford Jackson Creek</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="c">
+                                <div class="listing">
+                                    <img class="list-image" src="data/female_user_icon.svg" />
+                                    <div class="list-text"><b>Concepts 21 The Corners</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="d">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Retreat at Arc Way</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="e">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Steeple Chase Apartments</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">
+                            <li class="f">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Ashford Jackson Creek</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">    
+                            <li class="g">
+                                <div class="listing">
+                                    <img class="list-image" src="data/female_user_icon.svg" />
+                                    <div class="list-text"><b>Concepts 21 The Corners</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="details">    
+                            <li class="h">
+                                <div class="listing">
+                                    <img class="list-image" src="data/male_user_icon.svg" />
+                                    <div class="list-text"><b>Retreat at Arc Way</b></div>
+                                    <div class="cta-btns">
+                                        <div class="cta">Call</div>
+                                        <div class="cta">Message</div>
+                                        <div class="cta more">More</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+
+                    </ul>
+                </div>
+                
+                <!--Detail View Pages for each list items-->
+                <div class="panel" title="Item 1" id="item1" data-footer="none">
+                    <p>This is detail view for Item 1</p>
+                </div>
+                
+                <div class="panel" title="Item 2" id="item2" data-footer="none">
+                    <p>This is detail view for Item 2</p>
+                </div>
+                
+                <div class="panel" title="Item 3" id="item3" data-footer="none">
+                    <p>This is detail view for Item 3</p>
+                </div>
+                
+                <div class="panel" title="Item 4" id="item4" data-footer="none">
+                    <p>This is detail view for Item 4</p>
+                </div>
+                
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        <script type="text/javascript">
+            var clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+ 
+
+        $('.list-text').on(clickEvent, function() {
+
+            
+            $('li').not(this).removeClass('open');
+            $(this)
+            .closest('li')
+            .toggleClass('open'); 
+            
+            
+        });
+
+        //$('.more').on(clickEvent, function() {
+            
+        //$(this).closest('.details').toggleClass('show-details');
+        //$(this).closest('li').toggleClass('details-photo');
+        //$('li').not(this).toggleClass('hide');
+        //$(this).closest('li').removeClass('hide');
+        //});
+        
+
+        $('.more').on(clickEvent, function() {
+         $('#full-details').toggleClass('open');
+        $(this).parent().closest(".details").clone().appendTo("#full-details");
+        $("#full-details .list-text b").clone().appendTo("#overlay");
+        $('#full-details').find('.details .list-text').remove();
+        $('#full-details').find('.details .list-image').remove();
+
+
+
+        });
+
+        $('.close').on(clickEvent, function() {
+         $('#full-details').removeClass('open');
+         $('#full-details').find('.details').remove();
+         $('#full-details').find('#overlay b').empty();
+
+
+        });
+
+
+        
+        
+        </script>
+
+
+        
+    </body>
+</html>
